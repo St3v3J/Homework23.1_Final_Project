@@ -1,3 +1,4 @@
+import requests
 import hashlib
 import random
 import uuid
@@ -17,6 +18,13 @@ def index():
         user = db.query(User).filter_by(session_token=session_token, deleted=False).first()
     else:
         user = None
+
+    query = "London,UK"
+    unit = "metric"  # use "imperial" for Fahrenheit
+    api_key = "<your-api-key>"
+
+    url = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=ebdbfacd4ef1d34d61e69316d6e59ea1"
+    data = requests.get(url=url)  # GET request to the OpenWeatherMap API
 
     return render_template("index.html", user=user)
 
